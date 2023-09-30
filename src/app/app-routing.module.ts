@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+export const appRoutes: Routes = [
+  // main app page
+  {
+    path: '/purchase/login', pathMatch: 'full',
+    loadChildren: () => import('./feature/purchase/purchase.module').then(m => m.PurchaseModule)
+  },
+  // route all other paths to home page
+  {
+    path: '**', redirectTo: '/purchase/login', pathMatch: "full"
+  }
+]

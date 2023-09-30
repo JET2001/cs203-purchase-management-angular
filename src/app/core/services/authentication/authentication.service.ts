@@ -6,6 +6,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { baseURL } from '../../constants/api-paths';
 import { User } from 'src/app/models/user';
+import { GaVerificationPopupComponent } from 'src/app/shared/components/ga-verification-popup/ga-verification-popup.component';
 
 @Injectable({
   providedIn: 'root',

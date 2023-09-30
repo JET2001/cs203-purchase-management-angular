@@ -2,8 +2,6 @@ import { HttpClient, HttpParams, HttpParamsOptions } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseRestApiService } from 'src/app/core/services/base-rest-api/base-rest-api.service';
-import { Users } from 'src/app/mock-db/MockDB';
-import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -22,9 +20,9 @@ export class GetUserInfoService extends BaseRestApiService {
   }
 
   private _getUserID(email: string, mobile: string): string | undefined {
-    for (let user of Users) {
-      if (user.email == email && user.mobileNo == mobile) return user.userID;
-    }
+    // for (let user of Users) {
+    //   if (user.email == email && user.mobileNo == mobile) return user.userID;
+    // }
     return undefined;
   }
 }
