@@ -4,11 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 export const appRoutes: Routes = [
   // main app page
   {
-    path: '/purchase/login', pathMatch: 'full',
+    path: 'purchase',
     loadChildren: () => import('./feature/purchase/purchase.module').then(m => m.PurchaseModule)
   },
   // route all other paths to home page
   {
-    path: '**', redirectTo: '/purchase/login', pathMatch: "full"
+    path: '**', redirectTo: '/purchase/login', pathMatch: 'full'
   }
 ]
