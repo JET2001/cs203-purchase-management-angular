@@ -1,0 +1,20 @@
+@import 'src/_variables.scss';
+
+.header-container {
+  margin-top: 0px;
+  padding-right: 10px;
+  height: 80px;
+  background-color: $primary-blue-1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  column-gap: 10px;
+}
+.login-title {
+  font-weight: bold;
+  text-overflow: ellipsis;
+}
+.login-info-grp p {
+  margin: 0 auto;
+}

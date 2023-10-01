@@ -1,0 +1,6 @@
+<app-header></app-header>
+<app-text-button buttonVariants= "primary" buttonText="Login as jrteo.2022@smu.edu.sg" (buttonClick)="handleLoginClick()"></app-text-button>
+<div *ngIf="isLoginSuccessful" class = 'successfulLogin'>
+  <p>Successful Log In!</p>
+</div>
+<p *ngIf = "dataValue">{{dataValue}}</p>

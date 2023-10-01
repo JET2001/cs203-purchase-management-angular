@@ -1,0 +1,38 @@
+@import "/src/styles.scss";
+
+.custom-input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-input {
+    height: 40px;
+    width: 300px;
+    border-radius: 5px;
+    border-style: $gray-2;
+    border-style: solid;
+    border-width: 1px;
+    padding: 8px;
+    ::placeholder {
+        -webkit-text-fill-color: $gray-3;
+        font-size: $sub-text-2-font-size;
+        font-weight: $sub-text-2-font-weight;
+    }
+    font-size: $sub-text-1-font-size;
+    font-weight: $sub-text-1-font-weight;
+}
+
+.auth-code-input {
+    width: 200px;
+}
+
+.input-border-error {
+    border-style: solid;
+    border-color: $error-2;
+}
+
+.input-error-message {
+    -webkit-text-fill-color: $error-2;
+    font-size: $sub-text-2-font-size;
+    font-weight: $sub-text-2-font-weight;
+}
