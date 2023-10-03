@@ -1,6 +1,32 @@
 <app-header></app-header>
-<app-text-button buttonVariants= "primary" buttonText="Login as jrteo.2022@smu.edu.sg" (buttonClick)="handleLoginClick()"></app-text-button>
+<form [formGroup]="loginFG">
+  <div class="input-fields-container">
+    <div class="input-fields">
+      <app-input-field
+        placeholder="Email"
+        inputType="email"
+        [inputValue]="emailFC"
+      ></app-input-field>
+      <app-input-field
+        placeholder="Mobile"
+        inputType="mobile"
+        [inputValue]="mobileFC"
+      ></app-input-field>
+      <app-input-field
+        placeholder="Password"
+        inputType="password"
+        [inputValue]="passwordFC"
+      ></app-input-field>
+    </div>
+  </div>
+</form>
+<div *ngIf = "showInvalidLoginMessage">
+  <p class = 'error'>Invalid email, mobile or password</p>
+</div>
+
+<app-text-button buttonVariants= "primary" buttonText="Login" (buttonClick)="handleLoginClick()"></app-text-button>
 <div *ngIf="isLoginSuccessful" class = 'successfulLogin'>
   <p>Successful Log In!</p>
 </div>
+
 <p *ngIf = "dataValue">{{dataValue}}</p>
