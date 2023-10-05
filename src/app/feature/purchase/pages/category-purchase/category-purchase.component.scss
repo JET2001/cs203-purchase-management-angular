@@ -1,3 +1,5 @@
+@import "/src/styles.scss";
+
 .container {
   padding: 44px 0px;
 }
@@ -33,8 +35,13 @@
   background-color: rgba(124, 3, 3, 0.849); 
   color: white;
   border: none; 
-  padding: 10px 20px; 
   cursor: pointer;
+  padding: 10px 24px; 
+  border-radius: 35px;
+  font-weight: $button-text-font-weight;
+  font-size: $button-text-font-size;
+  -webkit-text-fill-color: $white;
+  min-width: 200px;
 }
 
 .table-container {
@@ -47,3 +54,4 @@
   align-items: center;
   width: 100%;
 }
+

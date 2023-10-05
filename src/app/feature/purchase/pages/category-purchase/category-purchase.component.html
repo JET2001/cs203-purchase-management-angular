@@ -10,14 +10,18 @@
         The following table shows categories and the remaining number of tickets
         per category.
       </p>
-      <button
-        class="show-seating-plan-button"
-        (click)="handleInformationClick()"
-      >
-        Show Seating Plan
+      <button class="show-seating-plan-button" (click)="toggleSeatingPlan()">
+        {{ showSeatingPlan ? "Hide Seating Plan" : "Show Seating Plan" }}
       </button>
     </div>
   </div>
+  <img
+  style="display: block; margin: 0 auto; width: 50%; height: auto;"
+    src="assets/seating-plans/tswift-era-2024-seating.jpg"
+    alt="Seating Plan"
+    *ngIf="showSeatingPlan"
+  />
+
   <app-show-table></app-show-table>
   <p>
     Please indicate your choice of category below, then proceed to purchase.
