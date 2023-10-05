@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { InputFieldComponent } from './components/input-field/input-field.component';
 import { TextButtonComponent } from './components/text-button/text-button.component';
 import { LoginPopupComponent } from './components/login-popup/login-popup.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { LoginPopupComponent } from './components/login-popup/login-popup.compon
     ButtonModule,
     ReactiveFormsModule,
     FormsModule,
+    DropdownModule
   ],
   exports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { LoginPopupComponent } from './components/login-popup/login-popup.compon
     InputFieldComponent,
     HeaderComponent,
     FormsModule,
+    DropdownModule,
     CarouselModule,
     GaVerificationPopupComponent,
     LoginPopupComponent,

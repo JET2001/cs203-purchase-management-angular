@@ -1,2 +1,51 @@
 <app-header></app-header>
-<h2>Category Select Page</h2>
+
+<!--retrieve selected concert from http request -->
+<!-- retrieve categories -->
+<div class="container">
+  <div class="category-details">
+    <h1>{{ eventTitle }}</h1>
+    <div class="content">
+      <p>
+        The following table shows categories and the remaining number of tickets
+        per category.
+      </p>
+      <button
+        class="show-seating-plan-button"
+        (click)="handleInformationClick()"
+      >
+        Show Seating Plan
+      </button>
+    </div>
+  </div>
+  <app-show-table></app-show-table>
+  <p>
+    Please indicate your choice of category below, then proceed to purchase.
+  </p>
+  <form [formGroup]="categoriesForm">
+    <div class="category-dropdown-container">
+      <p-dropdown
+        [options]="categories"
+        [(ngModel)]="selectedCategory"
+        placeholder="Select category"
+      ></p-dropdown>
+    </div>
+  </form>
+
+  <div class="navigation-buttons">
+    <div class="back-button">
+      <app-text-button
+        buttonVariants="black"
+        buttonText="Back to Login"
+        (buttonClick)="handleBack()"
+      ></app-text-button>
+    </div>
+    <div class="next-button">
+      <app-text-button
+        buttonVariants="primary"
+        buttonText="Proceed to Purchase"
+        (buttonClick)="handleNext()"
+      ></app-text-button>
+    </div>
+  </div>
+</div>

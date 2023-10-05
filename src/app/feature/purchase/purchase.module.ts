@@ -5,18 +5,20 @@ import { CategoryPurchaseComponent } from './pages/category-purchase/category-pu
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { purchaseRoutes } from './purchase.routing';
+import { ShowTableComponent } from './components/show-table/show-table.component';
 
 
 
 @NgModule({
   declarations: [
     SecureLoginComponent,
-    CategoryPurchaseComponent
+    CategoryPurchaseComponent,
+    ShowTableComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(purchaseRoutes)
+    RouterModule.forChild(purchaseRoutes),
   ]
 })
 export class PurchaseModule { }

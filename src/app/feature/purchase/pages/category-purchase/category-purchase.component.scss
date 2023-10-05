@@ -1,0 +1,49 @@
+.container {
+  padding: 44px 0px;
+}
+
+.p-dropdown {
+  width: 100%;
+}
+
+.category-details {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: flex-start;
+}
+
+.category-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-bottom: 10px;
+}
+
+.navigation-buttons {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.show-seating-plan-button {
+  float: right;
+  margin-top: 10px;
+  background-color: rgba(124, 3, 3, 0.849); 
+  color: white;
+  border: none; 
+  padding: 10px 20px; 
+  cursor: pointer;
+}
+
+.table-container {
+  position: relative; /* Create a positioning context */
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
