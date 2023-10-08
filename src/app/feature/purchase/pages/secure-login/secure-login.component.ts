@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { User } from 'src/app/models/user';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-secure-login',
@@ -24,6 +24,7 @@ export class SecureLoginComponent {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private authService: AuthenticationService
   ){
     this.loginFG = this.fb.group({
@@ -42,10 +43,13 @@ export class SecureLoginComponent {
     let mobile = this.processMobile();
     this.authService.login(this.emailFC.value, mobile, this.passwordFC.value).subscribe(
       (data: string | boolean) => {
-        if (typeof data == typeof ""){ // received a JWT token
+        if (typeof data === 'string' && data !== 'false') {
           this.authService.saveAuthToken(data.toString()); // save JWT Token to browser local storage.
           this.isLoginSuccessful = true;
-        } 
+          this.router.navigate(['purchase/categories']);
+        } else {
+          this.showInvalidLoginMessage = true;
+        }
         this.dataValue = data;
       }
     )
