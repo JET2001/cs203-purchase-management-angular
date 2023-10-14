@@ -37,10 +37,6 @@ export class HeaderComponent implements OnInit {
   isLoggedIn(): boolean {
     return this.authService.email != undefined;
   }
-  handleLoginButtonClick(): void {
-    this.activeModal.open(LoginPopupComponent, { centered: true });
-  }
-
 
   // loginUser(): void {
 
@@ -74,15 +70,4 @@ export class HeaderComponent implements OnInit {
   //     this.verifiedUserLoggingIn.emit();
   //   }
   // }
-
-  logoutUser(): void {
-    this.authService.userID = undefined;
-    this.userLoggedOut.emit();
-  }
-
-  handleConcertsButtonClick(): void {
-    if (window.location.href.includes('home')) return; // don't route anywhere if we are already on the home page.
-    this.router.navigate(['/home']);
-  }
-
 }
