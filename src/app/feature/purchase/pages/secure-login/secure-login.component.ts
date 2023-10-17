@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { GetUserInfoService } from 'src/app/shared/services/get-user-info/get-user-info.service';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
 
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './secure-login.component.html',
   styleUrls: ['./secure-login.component.scss']
 })
-export class SecureLoginComponent {
+export class SecureLoginComponent implements OnInit {
 
   loginFG: FormGroup;
   emailFC: FormControl = new FormControl('', []);
@@ -25,7 +26,8 @@ export class SecureLoginComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private getUserInfoService: GetUserInfoService
   ){
     this.loginFG = this.fb.group({
       email: this.emailFC,
@@ -33,6 +35,12 @@ export class SecureLoginComponent {
       password: this.passwordFC,
       checkbox: this.checkboxFC,
     });
+  }
+
+  ngOnInit(): void {
+    this.isLoginSuccessful = false;
+    this.dataValue = undefined;
+    this.showInvalidLoginMessage = false;
   }
 
   handleLoginClick(){
@@ -45,10 +53,35 @@ export class SecureLoginComponent {
       (data: string | boolean) => {
         if (typeof data === 'string' && data !== 'false') {
           this.authService.saveAuthToken(data.toString()); // save JWT Token to browser local storage.
-          this.isLoginSuccessful = true;
-          this.router.navigate(['purchase/categories']);
+          // this.isLoginSuccessful = true;
+
+          this.getUserInfoService.loadUserInfo(this.emailFC.value).subscribe(
+            (data: any) => {
+              const user: User = {
+                userID : data.id,
+                mobileNo: data.mobile,
+                email : data.email,
+                authenticatorID: data.authenticatorId,
+                isVerified: data.verified
+              };
+              console.log(user);
+
+              this.authService.user = user;
+              // Authenticate user
+              this.authService.authenticateUser().then((data: boolean) => {
+                // Log in user
+                this.isLoginSuccessful = true;
+                console.log(this.isLoginSuccessful);
+                this.authService.email = this.emailFC.value;
+              });
+            }
+          );
         } else {
           this.showInvalidLoginMessage = true;
+        } 
+
+        if (this.isLoginSuccessful) {
+          this.router.navigate(['purchase/categories']);
         }
         this.dataValue = data;
       }

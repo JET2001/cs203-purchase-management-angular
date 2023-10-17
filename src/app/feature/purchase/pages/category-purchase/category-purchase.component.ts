@@ -1,8 +1,10 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, AfterContentInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ShowTableComponent } from '../../components/show-table/show-table.component';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+
 
 @Component({
   selector: 'app-category-purchase',
@@ -19,6 +21,7 @@ export class CategoryPurchaseComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private authService: AuthenticationService,
     private router: Router
   ){
     this.categoriesForm = this.fb.group({});
@@ -36,6 +39,9 @@ export class CategoryPurchaseComponent implements OnInit {
 
 
   handleBack(){
+    this.authService.email = undefined;
+    this.authService.userID = undefined;
+    this.authService.user = undefined;
     this.router.navigate(['/login']);
   }
 
