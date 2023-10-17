@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,6 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./ga-verification-popup.component.scss'],
 })
 export class GaVerificationPopupComponent {
+  @Output() modalClosed: EventEmitter<boolean> = new EventEmitter<boolean>();
   gaFG: FormGroup;
   authenticationFC: FormControl = new FormControl('', []);
   checkboxFC: FormControl = new FormControl(false);
@@ -27,6 +28,7 @@ export class GaVerificationPopupComponent {
     else {
       // if (this.isChecked) console.log('checked');
       // console.log(this.authenticationFC.value);
+      this.modalClosed.emit(true);
       this.activeModal.dismiss('Cross click');
     }
   }
