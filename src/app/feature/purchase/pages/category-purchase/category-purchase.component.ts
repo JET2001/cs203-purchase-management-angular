@@ -18,6 +18,9 @@ export class CategoryPurchaseComponent implements OnInit {
   categoriesForm: FormGroup;
   selectedCategory: string | undefined;
   showSeatingPlan = false;
+  groupSize: number | undefined;
+  
+
 
   constructor(
     private fb: FormBuilder,
@@ -35,6 +38,8 @@ export class CategoryPurchaseComponent implements OnInit {
     // if category has less than (group size) amount of tickets 
     // remaining, remove it from array
     this.categories = ['CAT 1', 'CAT 2', 'CAT 3', 'CAT 4', 'CAT 5', 'CAT 6']
+    this.groupSize = 4;
+    
   }
 
 
@@ -45,7 +50,9 @@ export class CategoryPurchaseComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  handleNext(){}
+  handleNext(){
+    this.router.navigate(['/purchase/confirmation', this.selectedCategory]);
+  }
 
   handleInformationClick(): void {
   }
@@ -53,4 +60,5 @@ export class CategoryPurchaseComponent implements OnInit {
   toggleSeatingPlan(): void {
     this.showSeatingPlan = !this.showSeatingPlan; // Toggle the value
   }
+
 }

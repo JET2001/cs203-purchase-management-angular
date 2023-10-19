@@ -8,7 +8,7 @@
     <div class="content">
       <p>
         The following table shows categories and the remaining number of tickets
-        per category.
+        per category. Your group has {{ groupSize }} people. 
       </p>
       <button class="show-seating-plan-button" (click)="toggleSeatingPlan()">
         {{ showSeatingPlan ? "Hide Seating Plan" : "Show Seating Plan" }}
@@ -26,7 +26,6 @@
   <p>
     Please indicate your choice of category below, then proceed to purchase.
   </p>
-  <form [formGroup]="categoriesForm">
     <div class="category-dropdown-container">
       <p-dropdown
         [options]="categories"
@@ -34,7 +33,6 @@
         placeholder="Select category"
       ></p-dropdown>
     </div>
-  </form>
 
   <div class="navigation-buttons">
     <div class="back-button">
