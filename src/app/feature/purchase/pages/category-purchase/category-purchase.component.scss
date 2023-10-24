@@ -15,6 +15,11 @@
   align-items: flex-start;
 }
 
+.content-row {
+  display: flex;
+  align-items: baseline; 
+}
+
 .category-dropdown-container {
   display: flex;
   flex-direction: column;
@@ -31,7 +36,7 @@
 
 .show-seating-plan-button {
   float: right;
-  margin-top: 10px;
+  margin-bottom: 10px;
   background-color: rgba(124, 3, 3, 0.849); 
   color: white;
   border: none; 
@@ -55,3 +60,9 @@
   width: 100%;
 }
 
+.information-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}
