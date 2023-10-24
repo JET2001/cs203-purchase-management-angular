@@ -1,0 +1,28 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="confirmation">
+    <h1>{{ eventTitle }}</h1>
+    <div class="content">
+      <p>Thank you! You have successfully purchased:</p>
+      <p><b>{{ groupSize }} x {{eventTitle}} {{ selectedCategory }} tickets. </b></p>
+      <p>
+        Please check your email for purchase information and a detailed receipt.
+        We hope you have a great concert experience!
+      </p>
+      <p>
+        If you faced any inconveniences using our application, or have anything
+        you would like to advise us on, please inform us via the feedback form
+        below:
+      </p>
+    </div>
+  </div>
+  <div class="next-button">
+    <app-text-button
+      buttonVariants="primary"
+      buttonText="Feedback"
+      (buttonClick)="handleFeedback()"
+    ></app-text-button>
+  </div>
+</div>
+
