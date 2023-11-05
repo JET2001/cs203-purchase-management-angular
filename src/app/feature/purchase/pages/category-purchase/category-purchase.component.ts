@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ShowTableComponent } from '../../components/show-table/show-table.component';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { PurchaseCategoriesPopupComponent } from '../../components/purchase-categories-popup/purchase-categories-popup.component';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class CategoryPurchaseComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private activeModal: NgbModal
   ){
     this.categoriesForm = this.fb.group({});
   }
@@ -38,8 +40,8 @@ export class CategoryPurchaseComponent implements OnInit {
     // if category has less than (group size) amount of tickets 
     // remaining, remove it from array
     this.categories = ['CAT 1', 'CAT 2', 'CAT 3', 'CAT 4', 'CAT 5', 'CAT 6']
+    this.activeModal.open(PurchaseCategoriesPopupComponent, { centered: true });
     this.groupSize = 4;
-    
   }
 
 
@@ -55,6 +57,7 @@ export class CategoryPurchaseComponent implements OnInit {
   }
 
   handleInformationClick(): void {
+    this.activeModal.open(PurchaseCategoriesPopupComponent, { centered: true });
   }
 
   toggleSeatingPlan(): void {
