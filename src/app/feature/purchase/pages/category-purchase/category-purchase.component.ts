@@ -1,8 +1,7 @@
-import { Component, EventEmitter, OnInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ShowTableComponent } from '../../components/show-table/show-table.component';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { PurchaseCategoriesPopupComponent } from '../../components/purchase-categories-popup/purchase-categories-popup.component';
 
@@ -10,7 +9,8 @@ import { PurchaseCategoriesPopupComponent } from '../../components/purchase-cate
 @Component({
   selector: 'app-category-purchase',
   templateUrl: './category-purchase.component.html',
-  styleUrls: ['./category-purchase.component.scss']
+  styleUrls: ['./category-purchase.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CategoryPurchaseComponent implements OnInit {
   eventID: string | undefined;
@@ -21,7 +21,6 @@ export class CategoryPurchaseComponent implements OnInit {
   showSeatingPlan = false;
   groupSize: number | undefined;
   
-
 
   constructor(
     private fb: FormBuilder,
