@@ -53,7 +53,7 @@ export class CategoryPurchaseComponent implements OnInit {
   }
 
   handleNext(){
-    this.router.navigate(['/purchase/confirmation', this.selectedCategory]);
+    this.router.navigate(['/purchase/purchase', this.selectedCategory]);
   }
 
   handleInformationClick(): void {

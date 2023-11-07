@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { SecureLoginComponent } from './pages/secure-login/secure-login.component';
 import { CategoryPurchaseComponent } from './pages/category-purchase/category-purchase.component';
 import { PurchaseConfirmationComponent } from './pages/purchase-confirmation/purchase-confirmation.component';
+import { PurchasePageComponent } from './pages/purchase-page/purchase-page.component';
 
 export const purchaseRoutes: Routes = [
   {
@@ -15,5 +16,9 @@ export const purchaseRoutes: Routes = [
   {
     path: 'confirmation/:selectedCategory',
     component: PurchaseConfirmationComponent,
+  },
+  {
+    path: 'purchase/:selectedCategory',
+    component: PurchasePageComponent
   }
 ];

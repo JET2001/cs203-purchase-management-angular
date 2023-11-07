@@ -1,0 +1,40 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="confirmation">
+    <h1>{{ eventTitle }}</h1>
+    <div class="content">
+      <p>You have chosen to purchase:</p>
+      <p>
+        <b
+          >{{ groupSize }} x {{ eventTitle }} {{ selectedCategory }} tickets.
+        </b>
+      </p>
+      <p>
+        Please double-check your desired purchase. If you have decided on this
+        category, proceed and click Purchase. 
+      </p>
+      <p>
+        If you do not wish to purchase
+        this category of tickets, you can press Back to review your category
+        selection.
+      </p>
+    </div>
+  </div>
+  <div class="navigation-buttons">
+    <div class="back-button">
+      <app-text-button
+        buttonVariants="black"
+        buttonText="Back"
+        (buttonClick)="handleBack()"
+      ></app-text-button>
+    </div>
+    <div class="next-button">
+      <app-text-button
+        buttonVariants="primary"
+        buttonText="Purchase"
+        (buttonClick)="handlePurchase()"
+      ></app-text-button>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import { purchaseRoutes } from './purchase.routing';
 import { ShowTableComponent } from './components/show-table/show-table.component';
 import { PurchaseCategoriesPopupComponent } from './components/purchase-categories-popup/purchase-categories-popup.component';
 import { PurchaseConfirmationComponent } from './pages/purchase-confirmation/purchase-confirmation.component';
+import { PurchasePageComponent } from './pages/purchase-page/purchase-page.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { PurchaseConfirmationComponent } from './pages/purchase-confirmation/pur
     CategoryPurchaseComponent,
     ShowTableComponent,
     PurchaseCategoriesPopupComponent,
-    PurchaseConfirmationComponent
+    PurchaseConfirmationComponent,
+    PurchasePageComponent
   ],
   imports: [
     CommonModule,
