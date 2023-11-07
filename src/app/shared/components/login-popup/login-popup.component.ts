@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { BaseComponent } from 'src/app/base/base.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
@@ -6,13 +7,16 @@ import { GetUserInfoService } from '../../services/get-user-info/get-user-info.s
 import { User } from 'src/app/models/user';
 import { IpServiceService } from 'src/app/core/services/ip-service/ip-service.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { from, queue } from 'rxjs';
 
 @Component({
   selector: 'app-login-popup',
   templateUrl: './login-popup.component.html',
   styleUrls: ['./login-popup.component.scss'],
 })
-export class LoginPopupComponent implements OnInit {
+export class LoginPopupComponent extends BaseComponent implements OnInit {
   loginFG: FormGroup;
   emailFC: FormControl = new FormControl('', []);
   mobileFC: FormControl = new FormControl('', []);
@@ -20,6 +24,7 @@ export class LoginPopupComponent implements OnInit {
   checkboxFC: FormControl = new FormControl(false);
   ipAddress: string;
   navigateUser: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+  @Input() fromParent: any;
 
   // Error message fields
   showInvalidLoginMessage: boolean = false;
@@ -29,8 +34,11 @@ export class LoginPopupComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthenticationService,
     private getUserInfoService: GetUserInfoService,
-    private ip: IpServiceService
+    private ip: IpServiceService,
+    private route: ActivatedRoute,
+    protected override spinner: NgxSpinnerService
   ) {
+    super(spinner);
     this.loginFG = this.fb.group({
       email: this.emailFC,
       mobile: this.mobileFC,
@@ -52,10 +60,29 @@ export class LoginPopupComponent implements OnInit {
   loginUser(): void {
     if (!this._fieldsAllValid()) return;
     // Process mobile number
+    this.spinnerShow();
+
     let mobile = this.processMobile();
     let email = this.emailFC.value;
+    // const groupid = this.route.snapshot.paramMap.get('groupid')!;
+    // const eventid = this.route.snapshot.paramMap.get('eventid')!;
+    // const queueid = this.route.snapshot.paramMap.get('queueid')!;
+    const groupid = this.fromParent.groupid;
+    const eventid = this.fromParent.eventid;
+    const queueid = this.fromParent.queueid;
+    console.log(groupid)
+    console.log(eventid)
+    console.log(queueid)
     this.authService
-      .login(this.emailFC.value, mobile, this.passwordFC.value, this.ipAddress)
+      .login(
+        this.emailFC.value,
+        mobile,
+        this.passwordFC.value,
+        this.ipAddress,
+        groupid,
+        eventid,
+        queueid
+      )
       .subscribe({
         next: (token: string) => {
           // User gets a JWT token
@@ -87,6 +114,7 @@ export class LoginPopupComponent implements OnInit {
 
                 this.loginFG.reset();
                 // Dismiss this active modal
+                this.spinnerHide();
                 this.activeModal.dismiss();
               });
           }
@@ -94,7 +122,7 @@ export class LoginPopupComponent implements OnInit {
         error: (error) => {
           this.showInvalidLoginMessage = true;
           // if (error.message)
-          // this.spinnerHide();
+          this.spinnerHide();
         },
       });
   }

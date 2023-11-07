@@ -6,7 +6,8 @@ import { logInGuard } from './user-login.guards';
 
 export const purchaseRoutes: Routes = [
   {
-    path: 'login',
+    //login/<GROUPID>/<EVENTID>/<QUEUEID>
+    path: 'login/:groupid/:eventid/:showid/:queueid',
     component: SecureLoginComponent,
   },
   {

@@ -73,13 +73,22 @@ export class AuthenticationService extends BaseRestApiService {
     email: string,
     mobile: string,
     password: string,
-    ipAddress: string
+    ipAddress: string,
+    groupId: string,
+    eventId: string,
+    queueId: string,
   ): Observable<any> {
+    console.log(groupId)
+    console.log(eventId);
+    console.log(queueId)
     return this.post('auth/login', {
       email: email,
       mobile: mobile,
       password: password,
       ipAddress: ipAddress,
+      groupId: groupId,
+      eventId: eventId,
+      queueId: queueId
     });
   }
 
@@ -92,6 +101,9 @@ export class AuthenticationService extends BaseRestApiService {
       password: data.password,
       // "ipAddress": "172.128.0.1"
       ipAddress: data.ipAddress,
+      groupId: data.groupId,
+      eventId: data.eventId,
+      queueId: data.queueId
     });
     // console.log("auth headers =" + headers.get('email') + " " + headers.get('mobile') + " " + headers.get('password'));
     // headers.set('Content-Type', 'text/plain; charset=utf-8');
