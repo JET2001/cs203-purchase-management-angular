@@ -19,6 +19,7 @@ export class LoginPopupComponent implements OnInit {
   passwordFC: FormControl = new FormControl('', []);
   checkboxFC: FormControl = new FormControl(false);
   ipAddress: string;
+  navigateUser: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
   // Error message fields
   showInvalidLoginMessage: boolean = false;
@@ -43,93 +44,59 @@ export class LoginPopupComponent implements OnInit {
   }
 
   getIP(): void {
-    this.ip.getIPAddress().subscribe((res:any) => {
-      this.ipAddress=res.ip;
-    })
+    this.ip.getIPAddress().subscribe((res: any) => {
+      this.ipAddress = res.ip;
+    });
   }
 
   loginUser(): void {
     if (!this._fieldsAllValid()) return;
-
-    // Process mobile number.
+    // Process mobile number
     let mobile = this.processMobile();
     let email = this.emailFC.value;
     this.authService
       .login(this.emailFC.value, mobile, this.passwordFC.value, this.ipAddress)
-      .subscribe(
-        (data: string | boolean) => {
+      .subscribe({
+        next: (token: string) => {
           // User gets a JWT token
-          // console.log(data);
-          if (typeof data == typeof '') {
-            this.authService.saveAuthToken(JSON.parse(JSON.stringify(data)));
-
-            // Hardcoded user, we got CORS errors.
-            // const user: User = {
-            //   userID : "2",
-            //   mobileNo : "06598231539",
-            //   email : "jrteo.2022@smu.edu.sg",
-            //   authenticatorID: "002",
-            //   "isVerified": true
-            // };
-            // console.log(user);
-
-            // this.authService.user = user;
-
-            // this.loginFG.reset();
-            // // Dismiss this active modal
-            // this.activeModal.dismiss();
-            // // Authenticate user
-            // this.authService.authenticateUser().then((data: boolean) => {
-            //   // Log in user
-            //   this.authService.email = email;
-            // });
+          console.log(token);
+          if (token !== 'false') {
+            this.authService.saveAuthToken(JSON.parse(JSON.stringify(token)));
 
             // Make another call to get the user object --> quite inefficient for now. But possibly can refactor.
-            this.getUserInfoService.loadUserInfo(email).subscribe(
-              (data: any) => {
+            this.getUserInfoService
+              .loadUserInfo(email)
+              .subscribe((data: any) => {
+                console.log(data);
                 const user: User = {
-                  userID : data.id,
+                  userID: data.id,
                   mobileNo: data.mobile,
-                  email : data.email,
+                  email: data.email,
                   authenticatorID: data.authenticatorId,
-                  isVerified: data.verified
+                  isVerified: data.verified,
                 };
-                console.log(user);
 
                 this.authService.user = user;
-
-                this.loginFG.reset();
-                // Dismiss this active modal
-                this.activeModal.dismiss();
                 // Authenticate user
                 this.authService.authenticateUser().then((data: boolean) => {
                   // Log in user
                   this.authService.email = email;
+
+                  this.navigateUser.emit(true);
                 });
-              }
-            );
 
-            this.loginFG.reset();
-            // Dismiss this active modal
-            this.activeModal.dismiss();
-
-            // Authenticate user
-            this.authService.authenticateUser().then((data: boolean) => {
-              // Log in user
-              this.authService.email = email;
-            });
-
-            // return;
-          } else {
-            this.showInvalidLoginMessage = true;
-            this.loginFG.reset();
+                this.loginFG.reset();
+                // Dismiss this active modal
+                this.activeModal.dismiss();
+              });
           }
         },
-        (error: Error) => {
-          // console.log(error.message);
+        error: (error) => {
+          this.showInvalidLoginMessage = true;
           // if (error.message)
-        }
-      );
+          // this.spinnerHide();
+        },
+      });
   }
 
   private _fieldsAllValid(): boolean {

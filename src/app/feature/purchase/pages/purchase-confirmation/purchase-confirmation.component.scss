@@ -7,6 +7,12 @@
   align-items: flex-start;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
 .container {
   padding: 44px 0px;
 }

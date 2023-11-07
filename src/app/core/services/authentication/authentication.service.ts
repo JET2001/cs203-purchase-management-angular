@@ -6,7 +6,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { baseURL } from '../../constants/api-paths';
 import { User } from 'src/app/models/user';
-import { GaVerificationPopupComponent } from 'src/app/shared/components/ga-verification-popup/ga-verification-popup.component';
+// import { GaVerificationPopupComponent } from 'src/app/shared/components/ga-verification-popup/ga-verification-popup.component';
 
 @Injectable({
   providedIn: 'root',
@@ -50,7 +50,12 @@ export class AuthenticationService extends BaseRestApiService {
     this._userID = userID;
   }
   public get isLoggedIn(): boolean {
-    return this._userObject != undefined && this.localStorageService.userToken != null;
+    console.log(this._userObject);
+    console.log(this.localStorageService.userToken);
+    return (
+      this._userObject != undefined &&
+      this.localStorageService.userToken != null
+    );
   }
   public get isVerified(): boolean {
     return this._userObject != undefined ? this._userObject.isVerified : false;
@@ -74,7 +79,7 @@ export class AuthenticationService extends BaseRestApiService {
       email: email,
       mobile: mobile,
       password: password,
-      ipAddress: ipAddress
+      ipAddress: ipAddress,
     });
   }
 
@@ -82,18 +87,22 @@ export class AuthenticationService extends BaseRestApiService {
   protected override post(path: string, data: any): Observable<any> {
     let headers: HttpHeaders = new HttpHeaders({
       // 'Content-Type': 'application/json',
-      "email": data.email,
-      "mobile": data.mobile,
-      "password": data.password,
+      email: data.email,
+      mobile: data.mobile,
+      password: data.password,
       // "ipAddress": "172.128.0.1"
-      "ipAddress": data.ipAddress
+      ipAddress: data.ipAddress,
     });
     // console.log("auth headers =" + headers.get('email') + " " + headers.get('mobile') + " " + headers.get('password'));
     // headers.set('Content-Type', 'text/plain; charset=utf-8');
-    return this.http.post(`${baseURL}/${path}`, {},{
-      headers,
-      responseType: 'text',
-    });
+    return this.http.post(
+      `${baseURL}/${path}`,
+      {},
+      {
+        headers,
+        responseType: 'text',
+      }
+    );
   }
 
   public get email(): string | undefined {
@@ -106,7 +115,7 @@ export class AuthenticationService extends BaseRestApiService {
   }
 
   public authenticateUser(): Promise<boolean> {
-    this.activeModal.open(GaVerificationPopupComponent, { centered: true });
+    // this.activeModal.open(GaVerificationPopupComponent, { centered: true });
     return Promise.resolve(true);
   }
 }

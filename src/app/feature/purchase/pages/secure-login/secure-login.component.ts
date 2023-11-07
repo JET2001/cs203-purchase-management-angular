@@ -5,14 +5,15 @@ import { GetUserInfoService } from 'src/app/shared/services/get-user-info/get-us
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
 import { IpServiceService } from 'src/app/core/services/ip-service/ip-service.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginPopupComponent } from 'src/app/shared/components/login-popup/login-popup.component';
 
 @Component({
   selector: 'app-secure-login',
   templateUrl: './secure-login.component.html',
-  styleUrls: ['./secure-login.component.scss']
+  styleUrls: ['./secure-login.component.scss'],
 })
 export class SecureLoginComponent implements OnInit {
-
   loginFG: FormGroup;
   emailFC: FormControl = new FormControl('', []);
   mobileFC: FormControl = new FormControl('', []);
@@ -30,8 +31,9 @@ export class SecureLoginComponent implements OnInit {
     private router: Router,
     private authService: AuthenticationService,
     private getUserInfoService: GetUserInfoService,
-    private ip: IpServiceService
-  ){
+    private ip: IpServiceService,
+    private activeModal: NgbModal
+  ) {
     this.loginFG = this.fb.group({
       email: this.emailFC,
       mobile: this.mobileFC,
@@ -45,77 +47,20 @@ export class SecureLoginComponent implements OnInit {
     this.dataValue = undefined;
     this.showInvalidLoginMessage = false;
     this.getIP();
+    const modalRef = this.activeModal.open(LoginPopupComponent, {
+      centered: true,
+    });
+    modalRef.componentInstance.navigateUser.subscribe((value: boolean) => {
+      if (value) {
+        this.router.navigate(['purchase/categories']);
+      }
+    });
   }
 
   getIP() {
     this.ip.getIPAddress().subscribe((res: any) => {
       this.ipAddress = res.ip;
-    })
+    });
   }
 
-  handleLoginClick(){
-    if (!this._fieldsAllValid()) return;
-    // let email: string = "jrteo.2022@smu.edu.sg";
-    // let mobile: string = "06598231539";
-    // let password: string = "test123";
-    let mobile = this.processMobile();
-    this.authService.login(this.emailFC.value, mobile, this.passwordFC.value, this.ipAddress).subscribe(
-      (data: string | boolean) => {
-        if (typeof data === 'string' && data !== 'false') {
-          this.authService.saveAuthToken(data.toString()); // save JWT Token to browser local storage.
-          // this.isLoginSuccessful = true;
-
-          this.getUserInfoService.loadUserInfo(this.emailFC.value).subscribe(
-            (data: any) => {
-              const user: User = {
-                userID : data.id,
-                mobileNo: data.mobile,
-                email : data.email,
-                authenticatorID: data.authenticatorId,
-                isVerified: data.verified
-              };
-              console.log(user);
-
-              this.authService.user = user;
-              // Authenticate user
-              this.authService.authenticateUser().then((data: boolean) => {
-                // Log in user
-                this.isLoginSuccessful = true;
-                console.log(this.isLoginSuccessful);
-                this.authService.email = this.emailFC.value;
-              });
-            }
-          );
-        } else {
-          this.showInvalidLoginMessage = true;
-        } 
-
-        if (this.isLoginSuccessful) {
-          this.router.navigate(['purchase/categories']);
-        }
-        this.dataValue = data;
-      }
-    )
-  }
-
-  private _fieldsAllValid(): boolean {
-    for (let value of [
-      this.emailFC.value,
-      this.mobileFC.value,
-      this.passwordFC.value,
-    ]) {
-      if (value == null || value == undefined || value == '') {
-        this.showInvalidLoginMessage = true;
-        return false;
-      }
-    }
-    this.showInvalidLoginMessage = false;
-    return true;
-  }
-
-  private processMobile(): string {
-    let mobile: string = this.mobileFC.value;
-    mobile = mobile.replace('+', '0');
-    return mobile;
-  }
 }
