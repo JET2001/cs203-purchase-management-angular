@@ -49,7 +49,7 @@ export class CategoryPurchaseComponent implements OnInit {
     this.authService.email = undefined;
     this.authService.userID = undefined;
     this.authService.user = undefined;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']); 
   }
 
   handleNext(){

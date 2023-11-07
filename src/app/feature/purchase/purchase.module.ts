@@ -6,14 +6,17 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { purchaseRoutes } from './purchase.routing';
 import { ShowTableComponent } from './components/show-table/show-table.component';
-
+import { PurchaseCategoriesPopupComponent } from './components/purchase-categories-popup/purchase-categories-popup.component';
+import { PurchaseConfirmationComponent } from './pages/purchase-confirmation/purchase-confirmation.component';
 
 
 @NgModule({
   declarations: [
     SecureLoginComponent,
     CategoryPurchaseComponent,
-    ShowTableComponent
+    ShowTableComponent,
+    PurchaseCategoriesPopupComponent,
+    PurchaseConfirmationComponent
   ],
   imports: [
     CommonModule,
