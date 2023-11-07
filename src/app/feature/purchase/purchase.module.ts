@@ -8,6 +8,7 @@ import { purchaseRoutes } from './purchase.routing';
 import { ShowTableComponent } from './components/show-table/show-table.component';
 import { PurchaseCategoriesPopupComponent } from './components/purchase-categories-popup/purchase-categories-popup.component';
 import { PurchaseConfirmationComponent } from './pages/purchase-confirmation/purchase-confirmation.component';
+import { HttpClientModule } from "@angular/common/http";
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { PurchaseConfirmationComponent } from './pages/purchase-confirmation/pur
     CommonModule,
     SharedModule,
     RouterModule.forChild(purchaseRoutes),
+    HttpClientModule,
   ]
 })
 export class PurchaseModule { }

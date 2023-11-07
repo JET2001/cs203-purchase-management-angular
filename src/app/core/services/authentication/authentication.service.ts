@@ -67,12 +67,14 @@ export class AuthenticationService extends BaseRestApiService {
   public login(
     email: string,
     mobile: string,
-    password: string
+    password: string,
+    ipAddress: string
   ): Observable<any> {
     return this.post('auth/login', {
       email: email,
       mobile: mobile,
       password: password,
+      ipAddress: ipAddress
     });
   }
 
@@ -83,7 +85,8 @@ export class AuthenticationService extends BaseRestApiService {
       "email": data.email,
       "mobile": data.mobile,
       "password": data.password,
-      "ipAddress": "172.128.0.1"
+      // "ipAddress": "172.128.0.1"
+      "ipAddress": data.ipAddress
     });
     // console.log("auth headers =" + headers.get('email') + " " + headers.get('mobile') + " " + headers.get('password'));
     // headers.set('Content-Type', 'text/plain; charset=utf-8');
