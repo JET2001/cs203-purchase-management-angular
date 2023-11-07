@@ -44,6 +44,7 @@ export class SecureLoginComponent implements OnInit {
     this.isLoginSuccessful = false;
     this.dataValue = undefined;
     this.showInvalidLoginMessage = false;
+    this.getIP();
   }
 
   getIP() {
