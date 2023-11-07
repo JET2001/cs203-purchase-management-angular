@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GetUserInfoService } from 'src/app/shared/services/get-user-info/get-user-info.service';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
+import { IpServiceService } from 'src/app/core/services/ip-service/ip-service.service';
 
 @Component({
   selector: 'app-secure-login',
@@ -22,12 +23,14 @@ export class SecureLoginComponent implements OnInit {
 
   isLoginSuccessful: boolean = false;
   dataValue: string | boolean | undefined = undefined;
+  ipAddress: string;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthenticationService,
-    private getUserInfoService: GetUserInfoService
+    private getUserInfoService: GetUserInfoService,
+    private ip: IpServiceService
   ){
     this.loginFG = this.fb.group({
       email: this.emailFC,
@@ -41,6 +44,13 @@ export class SecureLoginComponent implements OnInit {
     this.isLoginSuccessful = false;
     this.dataValue = undefined;
     this.showInvalidLoginMessage = false;
+    this.getIP();
+  }
+
+  getIP() {
+    this.ip.getIPAddress().subscribe((res: any) => {
+      this.ipAddress = res.ip;
+    })
   }
 
   handleLoginClick(){
@@ -49,7 +59,7 @@ export class SecureLoginComponent implements OnInit {
     // let mobile: string = "06598231539";
     // let password: string = "test123";
     let mobile = this.processMobile();
-    this.authService.login(this.emailFC.value, mobile, this.passwordFC.value).subscribe(
+    this.authService.login(this.emailFC.value, mobile, this.passwordFC.value, this.ipAddress).subscribe(
       (data: string | boolean) => {
         if (typeof data === 'string' && data !== 'false') {
           this.authService.saveAuthToken(data.toString()); // save JWT Token to browser local storage.

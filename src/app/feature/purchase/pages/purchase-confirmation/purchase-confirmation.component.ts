@@ -28,7 +28,7 @@ export class PurchaseConfirmationComponent implements OnInit {
     this.eventID = 'tswift-era-2024';
     this.groupSize = 4;
     this.route.paramMap.subscribe(params => {
-      this.selectedCategory = params.get('category');
+      this.selectedCategory = params.get('selectedCategory');
     });
   }
 

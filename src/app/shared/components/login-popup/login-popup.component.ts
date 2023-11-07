@@ -4,6 +4,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { GetUserInfoService } from '../../services/get-user-info/get-user-info.service';
 import { User } from 'src/app/models/user';
+import { IpServiceService } from 'src/app/core/services/ip-service/ip-service.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-popup',
@@ -16,6 +18,7 @@ export class LoginPopupComponent implements OnInit {
   mobileFC: FormControl = new FormControl('', []);
   passwordFC: FormControl = new FormControl('', []);
   checkboxFC: FormControl = new FormControl(false);
+  ipAddress: string;
 
   // Error message fields
   showInvalidLoginMessage: boolean = false;
@@ -24,7 +27,8 @@ export class LoginPopupComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private authService: AuthenticationService,
-    private getUserInfoService: GetUserInfoService
+    private getUserInfoService: GetUserInfoService,
+    private ip: IpServiceService
   ) {
     this.loginFG = this.fb.group({
       email: this.emailFC,
@@ -34,7 +38,15 @@ export class LoginPopupComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getIP();
+  }
+
+  getIP(): void {
+    this.ip.getIPAddress().subscribe((res:any) => {
+      this.ipAddress=res.ip;
+    })
+  }
 
   loginUser(): void {
     if (!this._fieldsAllValid()) return;
@@ -43,7 +55,7 @@ export class LoginPopupComponent implements OnInit {
     let mobile = this.processMobile();
     let email = this.emailFC.value;
     this.authService
-      .login(this.emailFC.value, mobile, this.passwordFC.value)
+      .login(this.emailFC.value, mobile, this.passwordFC.value, this.ipAddress)
       .subscribe(
         (data: string | boolean) => {
           // User gets a JWT token
