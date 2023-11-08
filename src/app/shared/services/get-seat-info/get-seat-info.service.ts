@@ -29,7 +29,7 @@ export class GetSeatInfoService extends BaseRestApiService {
       eventId: eventId,
       showId: showId,
       userId: userId,
-      categoryId: Number(categoryId),
+      categoryId: Number(categoryId)
     });
   }
 }

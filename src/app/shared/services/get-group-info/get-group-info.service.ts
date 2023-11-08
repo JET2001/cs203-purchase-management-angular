@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseRestApiService } from 'src/app/core/services/base-rest-api/base-rest-api.service';
@@ -22,6 +22,6 @@ export class GetGroupInfoService extends BaseRestApiService {
 
   public getGroupSize() {
     console.log(this.groupId)
-    return this.post('purchase/group-size', { groupId: this.groupId });
+    return this.get('purchase/group-size/' + this.groupId);
   }
 }

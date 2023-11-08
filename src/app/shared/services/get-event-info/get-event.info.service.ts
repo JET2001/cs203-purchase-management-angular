@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseRestApiService } from 'src/app/core/services/base-rest-api/base-rest-api.service';
@@ -30,6 +30,6 @@ export class GetEventInfoService extends BaseRestApiService {
   }
 
   getEventTitle() {
-    return this.post('purchase/event', { eventId: this.eventId });
+    return this.get('purchase/event/' + this.eventId);
   }
 }

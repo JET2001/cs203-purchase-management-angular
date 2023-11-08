@@ -108,6 +108,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
                 this.authService.authenticateUser().then((data: boolean) => {
                   // Log in user
                   this.authService.email = email;
+                  this.authService.userID = user.userID;
 
                   this.navigateUser.emit(true);
                 });

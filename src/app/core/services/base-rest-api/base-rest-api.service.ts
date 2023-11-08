@@ -37,7 +37,7 @@ export abstract class BaseRestApiService {
   protected get(path: string): Observable<any> {
     return this.http.get(`${baseURL}/${path}`, this.httpHeaders).pipe(
       tap({
-        error: (error: HttpErrorResponse) => this.handleError(error),
+        // error: (error: HttpErrorResponse) => this.handleError(error),
       })
     );
   }
@@ -77,6 +77,7 @@ export abstract class BaseRestApiService {
   // Error handling --> this method can be overwritten if more fine grained error handling is required.
   // The default implementation creates a string in an error object
   protected handleError(error: HttpErrorResponse): Error {
-    return new Error(error.status.toString());
+    return error;
+    // return new Error(error.status.toString());
   }
 }

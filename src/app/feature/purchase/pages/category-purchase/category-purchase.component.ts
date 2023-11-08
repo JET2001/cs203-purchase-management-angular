@@ -21,6 +21,7 @@ export class CategoryPurchaseComponent implements OnInit {
   showid: string;
   queueid: string;
   userid: string;
+  eventTitle: string;
   categories: Array<any>;
   categoriesForm: FormGroup;
   selectedCategory: string | undefined;
@@ -39,7 +40,7 @@ export class CategoryPurchaseComponent implements OnInit {
     this.categoriesForm = this.fb.group({});
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     // //use mock data for Taylor Swift concert
     // this.eventTitle = 'Taylor Swift The Eras Tour';
     // this.eventID = 'tswift-era-2024';
@@ -52,9 +53,13 @@ export class CategoryPurchaseComponent implements OnInit {
     this.eventid = this.getEventInfoService.getEventId;
     this.showid = this.getEventInfoService.getShowId;
     this.groupid = this.getGroupInfoService.getGroupId;
-    this.userid = this.authService.email!;
+    this.userid = this.authService.userID!;
+    await this.getEventInfoService.getEventTitle().subscribe((eventTitle) => {
+      console.log(eventTitle)
+      this.eventTitle = eventTitle;
+    })
 
-    this.getSeatInfoService
+    await this.getSeatInfoService
       .getSeatCategories(this.eventid, this.showid)
       .subscribe((data) => {
         this.categories = data.map(
@@ -71,6 +76,11 @@ export class CategoryPurchaseComponent implements OnInit {
   }
 
   handleNext() {
+    console.log(this.groupid)
+    console.log(this.eventid)
+    console.log(this.showid)
+    console.log(this.userid)
+    console.log(this.selectedCategory!)
     this.getSeatInfoService.submitSeatChoices(
       this.groupid,
       this.eventid,
