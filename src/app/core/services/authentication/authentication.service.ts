@@ -50,8 +50,8 @@ export class AuthenticationService extends BaseRestApiService {
     this._userID = userID;
   }
   public get isLoggedIn(): boolean {
-    console.log(this._userObject);
-    console.log(this.localStorageService.userToken);
+    // console.log(this._userObject);
+    // console.log(this.localStorageService.userToken);
     return (
       this._userObject != undefined &&
       this.localStorageService.userToken != null
@@ -78,9 +78,7 @@ export class AuthenticationService extends BaseRestApiService {
     eventId: string,
     queueId: string,
   ): Observable<any> {
-    console.log(groupId)
-    console.log(eventId);
-    console.log(queueId)
+
     return this.post('auth/login', {
       email: email,
       mobile: mobile,

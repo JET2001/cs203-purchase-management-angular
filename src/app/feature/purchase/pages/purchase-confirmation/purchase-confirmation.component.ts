@@ -37,8 +37,8 @@ export class PurchaseConfirmationComponent implements OnInit {
       this.groupSize = size;
     });
 
-    await this.getEventInfoService.getEventTitle().subscribe((title) => {
-      this.eventTitle = title;
+    await this.getEventInfoService.getEventTitle().subscribe((data) => {
+      this.eventTitle = data.eventTitle;
     });
 
     this.eventID = this.getEventInfoService.getEventId;

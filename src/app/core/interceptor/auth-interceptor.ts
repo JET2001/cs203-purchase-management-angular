@@ -33,7 +33,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
     // Get the authtoken from the service
     const authToken: string | null = this.authService.retrieveAuthToken;
-    console.log(authToken);
+    // console.log(authToken);
     // Clone the request and replace the original headers with
     // cloned headers, updated with the authorization
     const authReq =

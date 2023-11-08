@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent } from 'src/app/base/base.component';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
-import { PurchaseCategoriesPopupComponent } from '../../components/purchase-categories-popup/purchase-categories-popup.component';
-import { GetSeatInfoService } from 'src/app/shared/services/get-seat-info/get-seat-info.service';
 import { GetEventInfoService } from 'src/app/shared/services/get-event-info/get-event.info.service';
 import { GetGroupInfoService } from 'src/app/shared/services/get-group-info/get-group-info.service';
-import { GetUserInfoService } from 'src/app/shared/services/get-user-info/get-user-info.service';
+import { GetSeatInfoService } from 'src/app/shared/services/get-seat-info/get-seat-info.service';
+import { PurchaseCategoriesPopupComponent } from '../../components/purchase-categories-popup/purchase-categories-popup.component';
 
 @Component({
   selector: 'app-category-purchase',
@@ -15,7 +16,7 @@ import { GetUserInfoService } from 'src/app/shared/services/get-user-info/get-us
   styleUrls: ['./category-purchase.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class CategoryPurchaseComponent implements OnInit {
+export class CategoryPurchaseComponent extends BaseComponent implements OnInit {
   eventid: string;
   groupid: string;
   showid: string;
@@ -35,8 +36,10 @@ export class CategoryPurchaseComponent implements OnInit {
     private activeModal: NgbModal,
     private getSeatInfoService: GetSeatInfoService,
     private getEventInfoService: GetEventInfoService,
-    private getGroupInfoService: GetGroupInfoService
+    private getGroupInfoService: GetGroupInfoService,
+    protected override spinner: NgxSpinnerService
   ) {
+    super(spinner);
     this.categoriesForm = this.fb.group({});
   }
 
@@ -54,10 +57,10 @@ export class CategoryPurchaseComponent implements OnInit {
     this.showid = this.getEventInfoService.getShowId;
     this.groupid = this.getGroupInfoService.getGroupId;
     this.userid = this.authService.userID!;
-    await this.getEventInfoService.getEventTitle().subscribe((eventTitle) => {
-      console.log(eventTitle)
-      this.eventTitle = eventTitle;
-    })
+    this.spinnerShow();
+    await this.getEventInfoService.getEventTitle().subscribe((event) => {
+      this.eventTitle = event.eventTitle;
+    });
 
     await this.getSeatInfoService
       .getSeatCategories(this.eventid, this.showid)
@@ -66,6 +69,7 @@ export class CategoryPurchaseComponent implements OnInit {
           (item: { categoryId: any }) => item.categoryId
         );
       });
+    this.spinnerHide();
   }
 
   handleBack() {
@@ -76,20 +80,15 @@ export class CategoryPurchaseComponent implements OnInit {
   }
 
   handleNext() {
-    console.log(this.groupid)
-    console.log(this.eventid)
-    console.log(this.showid)
-    console.log(this.userid)
-    console.log(this.selectedCategory!)
-    this.getSeatInfoService.submitSeatChoices(
-      this.groupid,
-      this.eventid,
-      this.showid,
-      this.userid,
-      this.selectedCategory!
-    ).subscribe((data) => {
-      console.log(data);
-    });
+    this.getSeatInfoService
+      .submitSeatChoices(
+        this.groupid,
+        this.eventid,
+        this.showid,
+        this.userid,
+        this.selectedCategory!
+      )
+      .subscribe((data) => {});
     this.router.navigate(['/purchase/confirmation', this.selectedCategory]);
   }
 

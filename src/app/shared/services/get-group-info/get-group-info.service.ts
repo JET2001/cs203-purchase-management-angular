@@ -21,7 +21,6 @@ export class GetGroupInfoService extends BaseRestApiService {
   }
 
   public getGroupSize() {
-    console.log(this.groupId)
     return this.get('purchase/group-size/' + this.groupId);
   }
 }

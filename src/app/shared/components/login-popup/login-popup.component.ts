@@ -70,9 +70,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     const groupid = this.fromParent.groupid;
     const eventid = this.fromParent.eventid;
     const queueid = this.fromParent.queueid;
-    console.log(groupid)
-    console.log(eventid)
-    console.log(queueid)
+
     this.authService
       .login(
         this.emailFC.value,
@@ -86,7 +84,6 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
       .subscribe({
         next: (token: string) => {
           // User gets a JWT token
-          console.log(token);
           if (token !== 'false') {
             this.authService.saveAuthToken(JSON.parse(JSON.stringify(token)));
 
@@ -94,7 +91,6 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
             this.getUserInfoService
               .loadUserInfo(email)
               .subscribe((data: any) => {
-                console.log(data);
                 const user: User = {
                   userID: data.id,
                   mobileNo: data.mobile,

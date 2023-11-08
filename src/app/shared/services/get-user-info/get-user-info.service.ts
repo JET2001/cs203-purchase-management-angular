@@ -17,7 +17,6 @@ export class GetUserInfoService extends BaseRestApiService {
 
   existingMobileNumber(mobile: string): Observable<any> {
     mobile = mobile.replace('+', '0');
-    console.log(mobile)
     return this.get('users/mobile/' + mobile);
   }
 
@@ -36,7 +35,6 @@ export class GetUserInfoService extends BaseRestApiService {
   }
 
   isUserVerified(email: string, mobile: string): Observable<any> {
-    console.log("email " + email + " mobile " + mobile);
     let params : HttpParams = new HttpParams();
     params = params.append("email", email);
     params = params.append("mobile", mobile);
