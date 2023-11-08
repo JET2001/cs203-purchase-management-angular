@@ -37,7 +37,7 @@ export class SecureLoginComponent implements OnInit {
     private activeModal: NgbModal,
     private route: ActivatedRoute,
     private getEventInfoService: GetEventInfoService,
-    private GetGroupInfoService: GetGroupInfoService,
+    private getGroupInfoService: GetGroupInfoService
   ) {
     this.loginFG = this.fb.group({
       email: this.emailFC,
@@ -58,7 +58,8 @@ export class SecureLoginComponent implements OnInit {
     const showid = this.route.snapshot.paramMap.get('showid');
     this.getEventInfoService.setEventId = eventid!;
     this.getEventInfoService.setShowId = showid!;
-    this.GetGroupInfoService.setGroupId = groupid!;
+    this.getGroupInfoService.setGroupId = groupid!;
+    this.getGroupInfoService.setQueueId = queueid!;
     // console.log(groupid)
     // console.log(eventid)
     // console.log(queueid)
@@ -73,23 +74,25 @@ export class SecureLoginComponent implements OnInit {
     });
     modalRef.componentInstance.fromParent = data;
     modalRef.componentInstance.navigateUser.subscribe((value: boolean) => {
-      if (value) {
-        this.router.navigateByUrl('purchase/categories', {
-          //login/:groupid/:eventid/:showid/:queueid
-          state: {
-            groupid: this.route.snapshot.paramMap.get('groupid')!,
-            eventid: this.route.snapshot.paramMap.get('eventid')!,
-            showid: this.route.snapshot.paramMap.get('showid')!,
-            queueid: this.route.snapshot.paramMap.get('queueid')!,
-          },
-        });
-      }
+      // if (value) {
+      //   this.router.navigateByUrl('purchase/categories', {
+      //     //login/:groupid/:eventid/:showid/:queueid
+      //     state: {
+      //       groupid: this.route.snapshot.paramMap.get('groupid')!,
+      //       eventid: this.route.snapshot.paramMap.get('eventid')!,
+      //       showid: this.route.snapshot.paramMap.get('showid')!,
+      //       queueid: this.route.snapshot.paramMap.get('queueid')!,
+      //     },
+      //   });
+      // }
+      this.router.navigate(['queue', 'room']);
     });
   }
 
   getIP() {
-    this.ip.getIPAddress().subscribe((res: any) => {
-      this.ipAddress = res.ip;
-    });
+    // this.ip.getIPAddress().subscribe((res: any) => {
+    //   this.ipAddress = res.ip;
+    // });
+  this.ipAddress = '172.17.0.2'
   }
 }

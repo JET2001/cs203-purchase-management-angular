@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptor/auth-interceptor';
+import { WaitingRoomComponent } from './feature/queue/pages/waiting-room/waiting-room.component';
 
 @NgModule({
   declarations: [AppComponent],

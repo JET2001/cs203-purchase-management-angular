@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="room-container">
+        <h1 class="header">Waiting Room</h1>
+        <h2 class="position">Position: {{ queueNumber }}</h2>
+        <p-progressBar [value]="queueNumber"></p-progressBar>
+    </div>
+    <div *ngIf="isFirst()" class="next-button">
+        <app-text-button
+        buttonVariants="primary"
+        buttonText="Proceed to Purchase"
+        (buttonClick)="handleNext()"></app-text-button>
+    </div>
+</div>

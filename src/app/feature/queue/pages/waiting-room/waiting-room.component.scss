@@ -1,0 +1,23 @@
+.container {
+  padding-left: 89px;
+  padding-top: 44px;
+  padding-right: 89px;
+  padding-bottom: 44px;
+}
+
+.header, .position{
+    text-align: center;
+}
+
+.room-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 20px;
+    margin-bottom: 40px;
+}
+
+.next-button {
+    display: flex;
+    justify-content: flex-end;
+}

@@ -89,6 +89,8 @@ export class CategoryPurchaseComponent extends BaseComponent implements OnInit {
         this.selectedCategory!
       )
       .subscribe((data) => {});
+      // shift everyone in the queue forward by 1
+    this.getGroupInfoService.updateQueueNumber();
     this.router.navigate(['/purchase/confirmation', this.selectedCategory]);
   }
 

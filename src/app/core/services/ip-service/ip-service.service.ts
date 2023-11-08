@@ -11,8 +11,8 @@ export class IpServiceService {
     private http : HttpClient,
   ) { }
 
-  public getIPAddress() 
-  {
-    return this.http.get("http://api.ipify.org/?format=json");
-  }
+  // public getIPAddress() 
+  // {
+  //   return this.http.get("http://api.ipify.org/?format=json");
+  // }
 }
