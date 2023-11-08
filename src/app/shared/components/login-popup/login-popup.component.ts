@@ -52,9 +52,11 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
   }
 
   getIP(): void {
-    this.ip.getIPAddress().subscribe((res: any) => {
-      this.ipAddress = res.ip;
-    });
+    // this.ip.getIPAddress().subscribe((res: any) => {
+    //   this.ipAddress = '1'
+    //   // this.ipAddress = res.ip;
+    // });
+    this.ipAddress = '172.17.0.2';
   }
 
   loginUser(): void {
