@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication/auth
 import { GetUserInfoService } from '../../services/get-user-info/get-user-info.service';
 import { User } from 'src/app/models/user';
 import { IpServiceService } from 'src/app/core/services/ip-service/ip-service.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { from, queue } from 'rxjs';
@@ -102,14 +102,10 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
                 };
 
                 this.authService.user = user;
-                // Authenticate user
-                this.authService.authenticateUser().then((data: boolean) => {
-                  // Log in user
-                  this.authService.email = email;
-                  this.authService.userID = user.userID;
+                this.authService.email = email;
+                this.authService.userID = user.userID;
 
-                  this.navigateUser.emit(true);
-                });
+                this.navigateUser.emit(true);
 
                 this.loginFG.reset();
                 // Dismiss this active modal
@@ -118,7 +114,7 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
               });
           }
         },
-        error: (error) => {
+        error: (error: HttpErrorResponse) => {
           this.showInvalidLoginMessage = true;
           // if (error.message)
           this.spinnerHide();
@@ -139,13 +135,6 @@ export class LoginPopupComponent extends BaseComponent implements OnInit {
     }
     this.showInvalidLoginMessage = false;
     return true;
-  }
-
-  // Hide error message when fields are modified
-  private _fieldsAreModified(): void {
-    for (let fc of [this.emailFC, this.mobileFC, this.passwordFC]) {
-      if (fc.dirty) this.showInvalidLoginMessage = false;
-    }
   }
 
   private processMobile(): string {

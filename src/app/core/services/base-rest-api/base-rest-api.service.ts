@@ -25,38 +25,22 @@ export abstract class BaseRestApiService {
 
   // Post request
   protected post(path: string, data: any): Observable<any> {
-    return this.http.post(`${baseURL}/${path}`, data, this.httpHeaders).pipe(
-      tap({
-        error: (error: HttpErrorResponse) => this.handleError(error),
-      })
-    );
+    return this.http.post(`${baseURL}/${path}`, data, this.httpHeaders);
   }
 
   // Get Request
   protected get(path: string): Observable<any> {
-    return this.http.get(`${baseURL}/${path}`, this.httpHeaders).pipe(
-      tap({
-        // error: (error: HttpErrorResponse) => this.handleError(error),
-      })
-    );
+    return this.http.get(`${baseURL}/${path}`, this.httpHeaders);
   }
 
   // Put Request
   protected put(path: string, data: any): Observable<any> {
-    return this.http.put(`${baseURL}/${path}`, data, this.httpHeaders).pipe(
-      tap({
-        error: (error: HttpErrorResponse) => this.handleError(error),
-      })
-    );
+    return this.http.put(`${baseURL}/${path}`, data, this.httpHeaders);
   }
 
   // Delete Request
-  protected delete(path: string, data: any): Observable<any> {
-    return this.http.delete(`${baseURL}/${path}`, this.httpHeaders).pipe(
-      tap({
-        error: (error: HttpErrorResponse) => this.handleError(error),
-      })
-    );
+  protected delete(path: string): Observable<any> {
+    return this.http.delete(`${baseURL}/${path}`, this.httpHeaders);
   }
 
   // Get Request with Parameters.
@@ -66,17 +50,13 @@ export abstract class BaseRestApiService {
     // console.log(headers);
     const options = {params: params, headers: this.httpHeaders.headers};
 
-    return this.http.get(`${baseURL}/${path}`, options).pipe(
-      tap({
-        error:(error: HttpErrorResponse) => this.handleError(error)
-      })
-    );
+    return this.http.get(`${baseURL}/${path}`, options);
   }
 
   // Error handling --> this method can be overwritten if more fine grained error handling is required.
   // The default implementation creates a string in an error object
-  protected handleError(error: HttpErrorResponse): Error {
-    return error;
-    // return new Error(error.status.toString());
-  }
+  // protected handleError(error: HttpErrorResponse): Error {
+  //   return error;
+  //   // return new Error(error.status.toString());
+  // }
 }
