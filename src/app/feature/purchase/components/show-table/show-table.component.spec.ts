@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShowTableComponent } from './show-table.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('ShowTableComponent', () => {
   let component: ShowTableComponent;
@@ -8,7 +9,8 @@ describe('ShowTableComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ShowTableComponent]
+      declarations: [ShowTableComponent],
+      providers: [HttpClient, HttpHandler]
     });
     fixture = TestBed.createComponent(ShowTableComponent);
     component = fixture.componentInstance;

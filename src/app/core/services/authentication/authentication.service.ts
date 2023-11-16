@@ -36,6 +36,7 @@ export class AuthenticationService extends BaseRestApiService {
 
   public set user(user: User | undefined) {
     this._userObject = user;
+    this._userID = user?.userID;
   }
 
   public get emailSubject(): BehaviorSubject<string | undefined> {
@@ -124,8 +125,8 @@ export class AuthenticationService extends BaseRestApiService {
     this._emailSubject.next(this._email);
   }
 
-  public authenticateUser(): Promise<boolean> {
-    // this.activeModal.open(GaVerificationPopupComponent, { centered: true });
-    return Promise.resolve(true);
-  }
+  // public authenticateUser(): Promise<boolean> {
+  //   // this.activeModal.open(GaVerificationPopupComponent, { centered: true });
+  //   return Promise.resolve(true);
+  // }
 }

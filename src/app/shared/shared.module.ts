@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
-import { GaVerificationPopupComponent } from './components/ga-verification-popup/ga-verification-popup.component';
 import { HeaderComponent } from './components/header/header.component';
 import { InputFieldComponent } from './components/input-field/input-field.component';
 import { TextButtonComponent } from './components/text-button/text-button.component';
@@ -15,7 +14,6 @@ import { DropdownModule } from 'primeng/dropdown';
     TextButtonComponent,
     InputFieldComponent,
     HeaderComponent,
-    GaVerificationPopupComponent,
     LoginPopupComponent
   ],
   imports: [
@@ -34,7 +32,6 @@ import { DropdownModule } from 'primeng/dropdown';
     FormsModule,
     DropdownModule,
     CarouselModule,
-    GaVerificationPopupComponent,
     LoginPopupComponent,
     ReactiveFormsModule
   ],

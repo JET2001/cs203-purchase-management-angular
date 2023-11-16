@@ -15,4 +15,7 @@ export class LocalStorageService {
   public get userToken(): string | null {
     return localStorage.getItem("userToken");
   }
+  public reset(): void {
+    localStorage.removeItem("userToken");
+  }
 }

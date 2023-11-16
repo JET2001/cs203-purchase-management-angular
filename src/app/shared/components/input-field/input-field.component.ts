@@ -23,31 +23,6 @@ export class InputFieldComponent implements OnInit {
     this.updateValidators();
   }
 
-  onChange: any = () => {};
-  onTouch: any = () => {};
-
-  writeValue(value: any): void {
-    if (value !== undefined) {
-      this.inputValue.setValue(value);
-    }
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouch = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.inputValue.disable();
-    } else {
-      this.inputValue.enable();
-    }
-  }
-
   getInputType() {
     return this.inputType === 'password' ? 'password' : 'text';
   }
@@ -60,8 +35,6 @@ export class InputFieldComponent implements OnInit {
       this.inputValue.addValidators(Validators.email);
     } else if (this.inputType === 'mobile') {
       this.inputValue.addValidators(Validators.pattern(/^\+65[89]\d{7}$/));
-    } else if (this.inputType === 'auth-code') {
-      this.inputValue.addValidators(Validators.pattern(/^\d{6}$/));
     }
     this.inputValue.updateValueAndValidity();
   }
