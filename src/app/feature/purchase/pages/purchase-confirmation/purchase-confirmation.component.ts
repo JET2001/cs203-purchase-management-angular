@@ -32,15 +32,13 @@ export class PurchaseConfirmationComponent implements OnInit {
     // this.route.paramMap.subscribe(params => {
     //   this.selectedCategory = params.get('selectedCategory');
     // });
-    await this.getGroupInfoService.getGroupSize().subscribe((size) => {
-      console.log(size);
-      this.groupSize = size;
-    });
-
     await this.getEventInfoService.getEventTitle().subscribe((data) => {
       this.eventTitle = data.eventTitle;
     });
 
+    await this.getGroupInfoService.getGroupSize().subscribe((size) => {
+      this.groupSize = size;
+    });
     this.eventID = this.getEventInfoService.getEventId;
 
     this.selectedCategory = this.getSeatInfoService.categoryId;

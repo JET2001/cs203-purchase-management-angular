@@ -14,31 +14,4 @@ export class GetUserInfoService extends BaseRestApiService {
   loadUserInfo(email: string): Observable<any> {
     return this.get('users/' + email);
   }
-
-  existingMobileNumber(mobile: string): Observable<any> {
-    mobile = mobile.replace('+', '0');
-    return this.get('users/mobile/' + mobile);
-  }
-
-  getUserID(email: string, mobile: string): Observable<any> {
-    mobile = mobile.replace('+', '0');
-    let params : HttpParams = new HttpParams();
-    params = params.append("email", email);
-    params = params.append("mobile", mobile);
-
-    return this.getWithParams('users', params);
-    // return this.get('`/users?email=${email}&mobile=${mobile}`');
-  }
-
-  isPaymentVerified(email: string, mobile: string): Observable<any> {
-    return this.get('users/is-payment-verified/' + email + '/' + mobile);
-  }
-
-  isUserVerified(email: string, mobile: string): Observable<any> {
-    let params : HttpParams = new HttpParams();
-    params = params.append("email", email);
-    params = params.append("mobile", mobile);
-
-    return this.getWithParams('users/is-verified', params);
-  }
 }

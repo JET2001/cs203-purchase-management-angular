@@ -53,10 +53,4 @@ export class HeaderComponent extends BaseComponent implements OnInit {
     this.userLoggedOut.emit();
     window.location.reload();
   }
-
-  handleConcertsButtonClick(): void {
-    if (window.location.href.includes('home')) return; // don't route anywhere if we are already on the home page.
-    this.spinnerShow();
-    this.router.navigate(['/home']);
-  }
 }

@@ -9,6 +9,7 @@ import { GetEventInfoService } from 'src/app/shared/services/get-event-info/get-
 import { GetGroupInfoService } from 'src/app/shared/services/get-group-info/get-group-info.service';
 import { GetSeatInfoService } from 'src/app/shared/services/get-seat-info/get-seat-info.service';
 import { PurchaseCategoriesPopupComponent } from '../../components/purchase-categories-popup/purchase-categories-popup.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-category-purchase',
@@ -88,10 +89,14 @@ export class CategoryPurchaseComponent extends BaseComponent implements OnInit {
         this.userid,
         this.selectedCategory!
       )
-      .subscribe((data) => {});
-      // shift everyone in the queue forward by 1
-    this.getGroupInfoService.updateQueueNumber();
-    this.router.navigate(['/purchase/confirmation', this.selectedCategory]);
+      .subscribe((data) => {
+        // shift everyone in the queue forward by 1
+        this.getGroupInfoService.updateQueueNumber();
+        this.router.navigate(['/purchase/confirmation', this.selectedCategory]);
+      });
+    // // shift everyone in the queue forward by 1
+    // this.getGroupInfoService.updateQueueNumber();
+    // this.router.navigate(['/purchase/confirmation', this.selectedCategory]);
   }
 
   handleInformationClick(): void {

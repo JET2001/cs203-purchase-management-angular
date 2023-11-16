@@ -31,17 +31,6 @@
           ></app-input-field>
         </div>
       </div>
-      <!-- <div> -->
-        <!-- <div class="login-text forgot-password">Forgot Password?</div> -->
-        <!-- <div class="checkbox">
-          <input type="checkbox" formControlName="checkbox" id="checkbox"/><label
-            for="checkbox"
-            class="checkbox-text"
-          >
-            &nbsp;Keep me signed in</label
-          >
-        </div> -->
-      <!-- </div> -->
     </form>
     <div *ngIf = "showInvalidLoginMessage">
       <p class = 'error'>Invalid email, mobile or password</p>
@@ -53,6 +42,5 @@
         (buttonClick)="loginUser()"
       ></app-text-button>
     </div>
-    <!-- <div class="login-text join-us">Not a member? Join us</div> -->
   </div>
 </div>

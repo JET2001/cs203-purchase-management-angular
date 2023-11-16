@@ -93,6 +93,6 @@ export class SecureLoginComponent implements OnInit {
     // this.ip.getIPAddress().subscribe((res: any) => {
     //   this.ipAddress = res.ip;
     // });
-  this.ipAddress = '172.17.0.2'
+    this.ipAddress = '172.17.0.2';
   }
 }
